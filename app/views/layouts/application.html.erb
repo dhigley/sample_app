@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SampleApp</title>
+  <!-- Listing 3.26: Using Embeded Ruby to provide a title to each page. -->
+  <title>Ruby on Rails Tutorial Sample App | <%= yield(:title) %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
