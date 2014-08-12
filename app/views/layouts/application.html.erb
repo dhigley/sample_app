@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Listing 3.26: Using Embeded Ruby to provide a title to each page. -->
-  <title>Ruby on Rails Tutorial Sample App | <%= yield(:title) %></title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <!-- Listing 3.26: Using Embeded Ruby to provide a title to each page. -->
+    <!-- Listing 4.3: Full page title is now deterined in application_helper. -->
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
 <body>
 
 <%= yield %>
