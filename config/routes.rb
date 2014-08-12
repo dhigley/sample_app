@@ -5,6 +5,9 @@ SampleApp::Application.routes.draw do
   # Listing 3.15: Adding the about route.
   get "static_pages/about"
 
+  # Excercise 3: Make a contact page
+  get "static_pages/contact"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

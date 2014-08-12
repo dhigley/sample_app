@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe "StaticPages" do
 
+  # Excercise 3: Eliminate some repetition.
+  let(:base_title) { "Ruby on Rails Tutorial Sample App" }
+
   # Listing 3.9: Code to test the contnet of the Home page.
   describe "Home page" do
 
@@ -13,7 +16,7 @@ describe "StaticPages" do
     # Lising 3.19: title test
     it "should have the right title" do
       visit '/static_pages/home'
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Home")
+      expect(page).to have_title("#{base_title} | Home")
     end
   end
 
@@ -28,7 +31,7 @@ describe "StaticPages" do
     # Lising 3.19: title test
     it "should have the right title" do
       visit '/static_pages/help'
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Help")
+      expect(page).to have_title("#{base_title} | Help")
     end
   end
 
@@ -43,7 +46,21 @@ describe "StaticPages" do
     # Lising 3.19: title test
     it "should have the right title" do
       visit '/static_pages/about'
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | About")
+      expect(page).to have_title("#{base_title} | About")
+    end
+  end
+
+  # Excercises 3: Make a contact page
+  describe "Contact page" do
+
+    it "should have the content 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact')
+    end
+
+    it "should have the right title" do
+      visit '/static_pages/contact'
+      expect(page).to have_title("#{base_title} | Contact")
     end
   end
 end

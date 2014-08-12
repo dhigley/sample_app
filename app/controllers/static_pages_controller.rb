@@ -8,4 +8,8 @@ class StaticPagesController < ApplicationController
   # Listing 3.16: Add about action in the StaticPages controller
   def about
   end
+
+  # Excercise 3: Make a Contact page
+  def contact
+  end
 end
