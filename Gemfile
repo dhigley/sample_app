@@ -3,6 +3,9 @@ ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.8'
+# Listing 5.3: Adding bootstrap to the application
+gem 'bootstrap-sass', '2.3.2.0'
+gem 'sprockets', '2.11.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

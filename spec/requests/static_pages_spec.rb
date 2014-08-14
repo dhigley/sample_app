@@ -2,72 +2,55 @@ require 'spec_helper'
 
 describe "StaticPages" do
 
-  # Excercise 3: Eliminate some repetition.
+  # Exercise 3: Eliminate some repetition.
   let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 
-  # Listing 3.9: Code to test the contnet of the Home page.
+  # Eliminate duplication by telling RSpec that 'page' is the subject of the test.
+  subject { page }
+
+  # Listing 3.9: Code to test the content of the Home page.
+  # Listing 5.23: Test for named routes by changing visit 'static_pages/page' to page_path.
   describe "Home page" do
+    # Cleaning up the test with one visit to the page.
+    before { visit root_path }
 
-    it "should have the content 'Sample App'" do
-      visit '/static_pages/home'
-      expect(page).to have_content('Sample App')
-    end
+    # Using the page variable 'it' method to collapse the code and description in to one line.
+    it { should have_content('Sample App') }
 
     # Listing 4.4: Updated test for the Home page's title.
-    it "should have the base title" do
-      visit '/static_pages/home'
-      expect(page).to have_title(base_title)
-    end
+    it { should have_title(base_title) }
 
-    # Lising 3.19: title test
+    # Listing 3.19: title test
     # Listing 4.4: Updated test for the Home page's title.
-    it "should not have a custom page title" do
-      visit '/static_pages/home'
-      expect(page).not_to have_title('| Home')
-    end
+    it { should_not have_title( '| Home') }
   end
 
   # Listing 3.12: Adding code to test the contents of the Help page.
   describe "Help page" do
+    before { visit help_path }
 
-    it "should have the content 'Help'" do
-      visit '/static_pages/help'
-      expect(page).to have_content('Help')
-    end
+    # Using the page variable 'it' method to collapse the code and description in to one line.
+    it { should have_content('Help') }
 
-    # Lising 3.19: title test
-    it "should have the right title" do
-      visit '/static_pages/help'
-      expect(page).to have_title("#{base_title} | Help")
-    end
+    # Listing 3.19: title test
+    it { should have_title("#{base_title} | Help") }
   end
 
   # Listing 3.14: Adding code to test the contents of the About page.
   describe "About page" do
+    before { visit about_path }
 
-    it "should have the content 'About Us'" do
-      visit '/static_pages/about'
-      expect(page).to have_content('About Us')
-    end
+    it { should have_content('About Us') }
 
-    # Lising 3.19: title test
-    it "should have the right title" do
-      visit '/static_pages/about'
-      expect(page).to have_title("#{base_title} | About")
-    end
+    # Listing 3.19: title test
+    it { should have_title("#{base_title} | About") }
   end
 
   # Excercises 3: Make a contact page
   describe "Contact page" do
+    before { visit contact_path }
 
-    it "should have the content 'Contact'" do
-      visit '/static_pages/contact'
-      expect(page).to have_content('Contact')
-    end
-
-    it "should have the right title" do
-      visit '/static_pages/contact'
-      expect(page).to have_title("#{base_title} | Contact")
-    end
+    it { should have_content('Contact') }
+    it { should have_title("#{base_title} | Contact") }
   end
 end

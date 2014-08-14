@@ -1,3 +1,4 @@
+<!-- Listing 5.9: Add partials for the stylesheets and header -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,10 +8,16 @@
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
+    <!-- Listing 5.9: Moved shim to partial _shim.html.erb. -->
+    <%= render 'layouts/shim' %>
   </head>
-<body>
-
-<%= yield %>
-
-</body>
+  <body>
+    <!-- Listing 5.9: Moved header to partial _header.html.erb. -->
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+      <!-- Listing 5.13: Site layout with footer partial -->
+      <%= render 'layouts/footer' %>
+    </div>
+  </body>
 </html>
