@@ -6,6 +6,8 @@ gem 'rails', '4.0.8'
 # Listing 5.3: Adding bootstrap to the application
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'sprockets', '2.11.0'
+# Listing 6.21: Adding bcrypt gem to hash passwords saved to the database.
+gem 'bcrypt-ruby', '3.1.2'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
