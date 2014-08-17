@@ -1,0 +1,14 @@
+<!-- Listing 7.10: Adding a title and heading for the user profile page. -->
+<% provide(:title, @user.name) %>
+<!-- Listing 7.14: Adding a sidebar tot he user show view. -->
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <!-- listing 7.12: the user show view with name and gravatar. -->
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+</div>

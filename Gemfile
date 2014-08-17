@@ -25,6 +25,7 @@ group :test do
   gem 'capybara', '2.1.0'
   # Listing 3.34: Update Gemfile to include Guard
   gem 'growl', '1.0.3'
+  gem 'factory_girl_rails', '4.2.0'
 end
 
 gem 'sass-rails', '4.0.1'

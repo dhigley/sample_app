@@ -6,6 +6,13 @@
 
 $grayMediumLight: #eaeaea;
 
+/* Listing 7.2: adding code for Sass mixin useed in the debug css below. */
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 /* Listing 5.6: Adding CSS for some universal sylings applying to all pages */
 /* universal */
 
@@ -104,4 +111,74 @@ footer {
       margin-left: 10px;
     }
   }
+}
+
+/* Listing 7.2: Adding CSS for a pretty debug box. */
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+/* Listing 7.15: SCSS for styling the user show page, including the sidebar. */
+/* sidebar */
+
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+/* Listing 7.19: CSS for the signup form. */
+/* forms */
+
+input, textarea, select, .uneditable-imput {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+/* Listing 7.25: CSS for styling error messages. */
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
 }

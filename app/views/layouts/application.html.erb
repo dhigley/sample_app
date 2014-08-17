@@ -15,9 +15,15 @@
     <!-- Listing 5.9: Moved header to partial _header.html.erb. -->
     <%= render 'layouts/header' %>
     <div class="container">
+      <!-- Listing 7.27: Adding contents of the flash variable to the site layout -->
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
       <%= yield %>
-      <!-- Listing 5.13: Site layout with footer partial -->
+      <!-- Listing 5.13: Site layout with footer partial. -->
       <%= render 'layouts/footer' %>
+      <!-- Listing 7.1: Adding debut info to dev site layout. -->
+      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
