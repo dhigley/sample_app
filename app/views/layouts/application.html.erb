@@ -17,7 +17,8 @@
     <div class="container">
       <!-- Listing 7.27: Adding contents of the flash variable to the site layout -->
       <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
+        <!-- Listing 7.33: Using the flash ERb in the site layout using 'content_tag'. -->
+        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>
       <%= yield %>
       <!-- Listing 5.13: Site layout with footer partial. -->
