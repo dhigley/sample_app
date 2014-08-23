@@ -2,11 +2,17 @@ SampleApp::Application.routes.draw do
   # Listing 7.3: Adding a Users resoure to the routes file.
   resources :users
 
+  # Listing 8.2: Define routes for the Sessions resource
+  resources :sessions, only: [:new, :create, :destroy]
+
   # Listing 5.26: Updating routes for static pages
   root 'static_pages#home'
 
   # Listing 5.35: Adding a route for the signup page
   match '/signup', to: 'users#new', via: 'get'
+  # Listing 8.2: Named routes for signin and signout pages.
+  match '/signin', to: 'sessions#new', via: 'get'
+  match '/signout', to: 'sessions#destroy', via: 'delete'
 
   # Listing 5.26: Updating routes for static pages
   match '/help', to: 'static_pages#help', via: 'get'

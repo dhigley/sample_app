@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   has_secure_password
 
   # Listing 6.20: Ensuring email uniqueness by downcasing email attribute before being save do the db.
-  before_save { email.downcase! }
+  before_save { self.email = email.downcase }
+
+  # Lisiting 8.18: A 'before_create' callback to create 'remember_token'.
+  before_create :create_remember_token
   # Listing 6.10: Validating the presence of the name and email attributes.
   # Listing 6.12: Adding a length validation for the name attribute.
   validates :name, presence: true, length: { maximum: 50 }
@@ -17,4 +20,21 @@ class User < ActiveRecord::Base
 
   # Listing 6.29: Adding a minimum password length.
   validates :password, length: { minimum: 6 }
+
+  # Listing 8.18: Create a new random 'remember_token'.
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # Listing 8.18: Create a secure hash for the 'new_remember_token'.
+  def User.digest(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  private
+
+    # Listing 8.18: Create the secure 'remember_token' and assign it to the user.
+    def create_remember_token
+      self.remember_token = User.digest(User.new_remember_token)
+    end
 end

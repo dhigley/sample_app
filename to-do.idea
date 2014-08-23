@@ -1,0 +1,19 @@
+Adding a User ID to the user model
+
+1. add a test to the spec/models/user_spec.rb file
+  it { should respond_to(:user_id) }
+
+2. create a migration to add the User ID to the database
+  rails generate migration add_user_id_to_users
+
+3. update db/migrate/[ts]_add_user_id_to_users.rb
+  def change
+    add_column :users, :user_id, :string
+    add_index :users, :user_id
+  end
+
+4. update the database
+  bundle exec rake db:migrate
+  bundle exec rake test:prepare
+
+Changing site name to 'blabber'

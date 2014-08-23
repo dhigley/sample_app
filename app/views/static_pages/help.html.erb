@@ -1,6 +1,6 @@
 <!-- Listing 3.28: Moved all html structure to layouts/application.html.erb -->
 <% provide(:title, 'Help') %>
-<h1>Help</h1>
+<h1><%= yield(:title) %></h1>
 <p>
   Get help on the Ruby on Rails Tutorail at the
   <a href="http://rialstutorial.org/help">Rails Tutorial help page</a>

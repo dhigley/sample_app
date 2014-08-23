@@ -13,6 +13,8 @@ class UsersController < ApplicationController
     # Listing 7.22: Using strong parameters in the create action.
     @user = User.new(user_params)
     if @user.save
+      # Listing 8.27: Signing in the user upon signup.
+      sign_in @user
       # Listing 7.26: Redirecting the create action to the new user page.
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
