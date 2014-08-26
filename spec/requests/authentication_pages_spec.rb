@@ -20,7 +20,9 @@ describe "Authentication" do
       before { click_button "Sign in" }
 
       it { should have_title('Sign in') }
-      it { should have_selector('div.alert.alert-error') }
+      # Listing 8.34: Implemented due to changes to the spec/support/utilities.rb file.
+      it { should have_error_message('Invalid') }
+      # it { should have_selector('div.alert.alert-error') }
 
       # Listing 8.11: Correct test for signin failure.
       describe "after visiting another page" do
@@ -31,11 +33,13 @@ describe "Authentication" do
 
     describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
-      before do
-        fill_in "Email", with: user.email.upcase
-        fill_in "Password", with: user.password
-        click_button "Sign in"
-      end
+      # Listing 8.34: Implemented due to changes to the spec/support/utilities.rb file.
+      before { valid_signin(user) }
+      # before do
+      #   fill_in "Email", with: user.email.upcase
+      #   fill_in "Password", with: user.password
+      #   click_button "Sign in"
+      # end
 
       it { should have_title(user.name) }
       it { should have_link('Profile', href: user_path(user)) }

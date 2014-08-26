@@ -26,6 +26,9 @@ group :test do
   # Listing 3.34: Update Gemfile to include Guard
   gem 'growl', '1.0.3'
   gem 'factory_girl_rails', '4.2.0'
+  # Listing 8.31: Adding the cucumber-rails gem to the 'Gemfile'.
+  gem 'cucumber-rails', '1.4.0', :require => false
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
 gem 'sass-rails', '4.0.1'
