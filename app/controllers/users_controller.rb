@@ -23,6 +23,23 @@ class UsersController < ApplicationController
     end
   end
 
+  # Listing 9.2: the user 'edit' action.
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  # Listing 9.8: The user 'Update' action.
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      # Listing 9.10: Handle a succesfull update
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   # Listing 7.22: Requiring params hash to have a :user attribute and permit only given attributes.

@@ -26,18 +26,22 @@ describe "Authentication" do
       # Listing 8.11: Correct test for signin failure.
       describe "after visiting another page" do
         before { click_link "Home" }
+        # Exercise 8: Implemented due to changes to the spec/support/utilities.rb file.
         it { should_not have_error_message('Invalid') }
-        # it { should_not have_selector('div.alert.alert-error') }
       end
     end
 
     describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
+      # Listing 9.5: Using a helper in spec/support/utilities to sign a user inside the test.
+      before { sign_in user }
       # Listing 8.34: Implemented due to changes to the spec/support/utilities.rb file.
-      before { valid_signin(user) }
+      # before { valid_signin(user) }
 
       it { should have_title(user.name) }
       it { should have_link('Profile', href: user_path(user)) }
+      # Listing 9.5: Adding a test for the "Settings" link.
+      it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
 

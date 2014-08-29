@@ -29,6 +29,9 @@ describe "StaticPages" do
     # Listing 3.19: title test
     # Listing 4.4: Updated test for the Home page's title.
     it { should_not have_title( '| Home') }
+
+    # The home page should have a link to sign in.
+    it { should have_link('Sign in', href: signin_path) }
   end
 
   # Listing 3.12: Adding code to test the contents of the Help page.
