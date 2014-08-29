@@ -39,9 +39,9 @@ describe "User pages" do
         before { click_button submit }
 
         it { should have_title('Sign up') }
-        # My own added test for errors; app should stay on the signup page, it should
-        # display the error message, and it should give a <li> list of errors.
-        it { should have_selector('div.alert.alert-error', 'error') }
+        # Exercise 8: Implemented due to changes to the spec/support/utilities.rb file.
+        it { should have_error_message('error') }
+        # Test for errors, it should give a <li> list of each error.
         it { should have_selector('li', text: '*') }
       end
     end
@@ -66,7 +66,8 @@ describe "User pages" do
         # Listing 8.26: Testing that newly signed-up users are also signed in.
         it { should have_link('Sign out') }
         it { should have_title(user.name) }
-        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+        # Exercise 8: Implemented due to changes to the spec/support/utilities.rb file.
+        it { should have_success_message('Welcome') }
       end
     end
   end

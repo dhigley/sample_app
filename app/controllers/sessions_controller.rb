@@ -1,18 +1,19 @@
+# Listing 8.3: The initial Sessions controller
 class SessionsController < ApplicationController
 
-  # Listing 8.3: The initial Sessions controller
   def new
   end
 
   def create
     # Listing 8.13: Authenticate user and handle failed signin.
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    # Exercise 8: Refactor the signin form to use form_tag in place of form_for
+    user = User.find_by(email: params[:email].downcase)
+    if user && user.authenticate(params[:password])
       sign_in user
       redirect_to user
     else
       flash.now[:error] = 'Invalid email/password combination'
-      render 'new'
+      render "new"
     end
   end
 
