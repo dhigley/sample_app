@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  # Listing 9.12: Adding a signed_in_user before filter.
+  before_action :signed_in_user, only: [:edit, :update]
+  # Listing 9.14: Listing 9.14: A correct_user before filter to protect the edit/update pages.
+  before_action :correct_user,   only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -23,14 +27,14 @@ class UsersController < ApplicationController
     end
   end
 
-  # Listing 9.2: the user 'edit' action.
+  # Listing 9.2: The user 'edit' action.
   def edit
-    @user = User.find(params[:id])
+    # Listing 9.14: Finding the correct user is now handled by the correct_user before_action.
   end
 
   # Listing 9.8: The user 'Update' action.
   def update
-    @user = User.find(params[:id])
+    # Listing 9.14: Finding the correct user is now handled by the correct_user before_action.
     if @user.update_attributes(user_params)
       # Listing 9.10: Handle a succesfull update
       flash[:success] = "Profile updated"
@@ -43,8 +47,23 @@ class UsersController < ApplicationController
   private
 
   # Listing 7.22: Requiring params hash to have a :user attribute and permit only given attributes.
-  def user_params
-    params.require(:user).permit(:name, :email, :password,
-                                :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:name, :email, :password,
+                                  :password_confirmation)
+    end
+
+    # Before filters
+
+    # Listing 9.12: Require users to be signed in before using the 'edit' and 'update' actions.
+    def signed_in_user
+      store_location
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    # Listing 9.14: Require that the user be the correct user before allowing
+    # access to the 'edit' and 'update' actions.
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
 end
