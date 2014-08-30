@@ -1,8 +1,15 @@
 class UsersController < ApplicationController
   # Listing 9.12: Adding a signed_in_user before filter.
-  before_action :signed_in_user, only: [:edit, :update]
+  before_action :signed_in_user, only: [:index, :edit, :update]
   # Listing 9.14: Listing 9.14: A correct_user before filter to protect the edit/update pages.
   before_action :correct_user,   only: [:edit, :update]
+
+  # Listing 9.21: Requiring a signed-in user for the index action.
+  def index
+    # Listing 9.23: The user index action.
+    # Listing 9.34: Paginating the users in the 'index' action.
+    @users = User.paginate(page: params[:page])
+  end
 
   def show
     @user = User.find(params[:id])
@@ -56,8 +63,11 @@ class UsersController < ApplicationController
 
     # Listing 9.12: Require users to be signed in before using the 'edit' and 'update' actions.
     def signed_in_user
-      store_location
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      # Listing 9.18: Adding store_location to the signed-in user before filter.
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
     end
 
     # Listing 9.14: Require that the user be the correct user before allowing

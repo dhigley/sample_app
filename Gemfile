@@ -8,6 +8,11 @@ gem 'bootstrap-sass', '2.3.2.0'
 gem 'sprockets', '2.11.0'
 # Listing 6.21: Adding bcrypt gem to hash passwords saved to the database.
 gem 'bcrypt-ruby', '3.1.2'
+# Listing 9.28: Adding the Faker gem to the Gemfile.
+gem 'faker', '1.1.2'
+# Listing 9.30: Including will_paginate in the Gemfile.
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

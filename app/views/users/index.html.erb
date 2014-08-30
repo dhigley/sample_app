@@ -1,0 +1,14 @@
+<!-- Listing 9.24: The user index view. -->
+<% provide(:title, 'All users') %>
+<h1><%= yield(:title) %></h1>
+
+<!-- Listing 9.33: The user index with pagination. -->
+
+<%= will_paginate %>
+
+<ul class="users">
+  <!-- Listing 9.37: Rendering users with the app/views/users/_user.html.erb partial. -->
+  <%= render @users %>
+</ul>
+
+<%= will_paginate %>
