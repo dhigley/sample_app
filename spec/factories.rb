@@ -6,5 +6,10 @@ FactoryGirl.define do
     sequence(:email) { |n| "person_#{n}@example.com"}
     password "foobar"
     password_confirmation "foobar"
+
+    # Listing 9.41: Adding a factory for administrative users.
+    factory :admin do
+      admin true
+    end
   end
 end

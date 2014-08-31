@@ -22,8 +22,21 @@ describe User do
   # Listing 8.15: A first test for the remmber token
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  # Listing 9.38: Tests for an admin attribute.
+  it { should respond_to(:admin) }
 
   it { should be_valid }
+  it { should_not be_admin }
+
+  # Listing 9.38: Tests for an admin attribute.
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+
+    it { should be_admin }
+  end
 
   # Listing 6.8: A failing test for the validation of the name attribute.
   describe "when name is not present" do

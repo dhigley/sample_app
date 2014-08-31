@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   # Listing 9.12: Adding a signed_in_user before filter.
-  before_action :signed_in_user, only: [:index, :edit, :update]
+  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   # Listing 9.14: Listing 9.14: A correct_user before filter to protect the edit/update pages.
   before_action :correct_user,   only: [:edit, :update]
+  # Listing 9.46: A before filter restricting the destroy action to admins.
+  before_action :admin_user, only: :destroy
 
   # Listing 9.21: Requiring a signed-in user for the index action.
   def index
@@ -51,6 +53,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # Listing 9.44: Adding a working destroy action.
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
+
   private
 
   # Listing 7.22: Requiring params hash to have a :user attribute and permit only given attributes.
@@ -75,5 +84,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end
