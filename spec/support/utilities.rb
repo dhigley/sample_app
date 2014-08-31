@@ -1,13 +1,6 @@
 # Listing 5.42: Replacing the full_title test helper with a simple include.
 include ApplicationHelper
 
-# Listing 8.34: Adding a 'valid_signin' helper method.
-def valid_signin(user)
-  fill_in "Email", with: user.email
-  fill_in "Password", with: user.password
-  click_button "Sign in"
-end
-
 # Listing 9.6: A test helper to sign in users.
 def sign_in(user, options={})
   if options[:no_capybara]
@@ -21,6 +14,10 @@ def sign_in(user, options={})
     fill_in "Password", with: user.password
     click_button "Sign in"
   end
+end
+
+def sign_out
+  click_link "Sign out"
 end
 
 # Listing 8.34: Adding a custom RSpec matcher.

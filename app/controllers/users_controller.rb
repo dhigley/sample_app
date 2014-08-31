@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   # Listing 9.46: A before filter restricting the destroy action to admins.
   before_action :admin_user, only: :destroy
+  # Exercise 9: Protect the 'new' and 'create' actions from signed in users.
+  before_action :non_signed_in_user, only: [:new, :create]
 
   # Listing 9.21: Requiring a signed-in user for the index action.
   def index
@@ -55,9 +57,14 @@ class UsersController < ApplicationController
 
   # Listing 9.44: Adding a working destroy action.
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted."
-    redirect_to users_url
+    @user = User.find(params[:id])
+    if current_user?(@user)
+      redirect_to users_path, notice: "Admins are not able to destroy themselves."
+    else
+      @user.destroy
+      flash[:success] = "User deleted."
+      redirect_to users_url
+    end
   end
 
   private
@@ -77,6 +84,11 @@ class UsersController < ApplicationController
         store_location
         redirect_to signin_url, notice: "Please sign in."
       end
+    end
+
+    # Exercise 9: Protect the 'new' and 'create' actions from signed in users.
+    def non_signed_in_user
+      redirect_to(root_url) if signed_in?
     end
 
     # Listing 9.14: Require that the user be the correct user before allowing

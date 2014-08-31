@@ -10,6 +10,12 @@ describe "Authentication" do
 
     it { should have_content('Sign in') }
     it { should have_title('Sign in') }
+    # Exercise 9: Profile and Settings links should not appear when a user is not signed in.
+    it { should_not have_link('Users', href: users_path) }
+    it { should_not have_link('Profile') }
+    it { should_not have_link('Settings') }
+    it { should_not have_link('Sign out', href: signout_path) }
+
   end
 
   describe "signin" do
@@ -36,7 +42,6 @@ describe "Authentication" do
       # Listing 9.5: Using a helper in spec/support/utilities to sign a user inside the test.
       before { sign_in user }
       # Listing 8.34: Implemented due to changes to the spec/support/utilities.rb file.
-      # before { valid_signin(user) }
 
       it { should have_title(user.name) }
       # Listing 9.26: A test for the “Users” link URL.
@@ -49,8 +54,13 @@ describe "Authentication" do
 
       # Listing 8.28: Test for signing out a user.
       describe "followed by signout" do
-        before { click_link "Sign out" }
+        before { sign_out }
         it { should have_link('Sign in') }
+        # Exercise 9: Profile and Settings links should not appear when a user is not signed in.
+        it { should_not have_link('Users', href: users_path) }
+        it { should_not have_link('Profile') }
+        it { should_not have_link('Settings') }
+        it { should_not have_link('Sign out', href: signout_path) }
       end
     end
   end
@@ -65,15 +75,25 @@ describe "Authentication" do
       describe "when attempting to visit a protected page" do
         before do
           visit edit_user_path(user)
-          fill_in "Email",    with: user.email
-          fill_in "Password", with: user.password
-          click_button "Sign in"
+          sign_in user
         end
 
         describe "after signing in" do
 
           it "should render the desired protected page" do
             expect(page).to have_title('Edit user')
+          end
+
+          #### Exercise 9: Make sure friendly forwarding only forwards to the given URL the first time.
+          describe "when signing in again" do
+            before do
+              sign_out
+              sign_in user
+            end
+
+            it "should render the default (profile) page" do
+              expect(page).to have_title(user.name)
+            end
           end
         end
       end
@@ -127,6 +147,35 @@ describe "Authentication" do
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         specify { expect(response).to redirect_to(root_url) }
+      end
+    end
+
+    # Exercise 9: Protect the 'new' and 'create' actions from signed in users.
+    describe "as a signed-in user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { sign_in user, no_capybara: true }
+
+      describe "submitting a GET reqeust to the Users#new action" do
+        before { get new_user_path }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+
+      describe "submitting a POST request to the Users#create action" do
+        before { post users_path }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+    end
+
+    # Exercise 9: Prevent admin users from destroying themselves.
+    describe "as an admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do
+        sign_in admin, no_capybara: true
+        visit users_path
+      end
+
+      describe "submitting a DELETE reqeust on themselves" do
+        specify { expect { delete user_path(admin) }.not_to change(User, :count) }
       end
     end
   end

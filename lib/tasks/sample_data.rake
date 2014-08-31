@@ -2,6 +2,7 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
+    # Listing 9.40: The sample data populator code with an admin user.
     admin = User.create!(name: "Example User",
                          email: "example@railstutorial.org",
                          password: "foobar",
