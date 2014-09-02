@@ -17,6 +17,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # Listing 10.19: Adding an @microposts instance variable to the user show action.
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
