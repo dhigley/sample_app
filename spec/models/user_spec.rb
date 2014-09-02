@@ -24,6 +24,8 @@ describe User do
   it { should respond_to(:authenticate) }
   # Listing 9.38: Tests for an admin attribute.
   it { should respond_to(:admin) }
+  # Listing 10.6: A test for the user’s microposts attribute.
+  it { should respond_to(:microposts) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -142,5 +144,31 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  # Listing 10.10: Testing the order of a user’s microposts.
+  describe "micropost associations" do
+
+    before { @user.save }
+    let!(:older_micropost) do
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_micropost) do
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right microposts in the right order" do
+      expect(@user.microposts.to_a).to eq [newer_micropost, older_micropost]
+    end
+
+    # Listing 10.12: Testing that microposts are destroyed when users are.
+    it "should destroy associated micropost" do
+      microposts = @user.microposts.to_a
+      @user.destroy
+      expect(microposts).not_to be_empty
+      microposts.each do |micropost|
+        expect(Micropost.where(id: micropost.id)).to be_empty
+      end
+    end
   end
 end

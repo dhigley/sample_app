@@ -12,4 +12,10 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  # Listing 10.9: The complete factory file, including a new factory for microposts.
+  factory :micropost do
+    content "Lorem ipsum"
+    user
+  end
 end

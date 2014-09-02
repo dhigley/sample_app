@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  # Listing 10.8: A user has_many microposts.
+  # Listing 10.13: Ensuring that a user’s microposts are destroyed along with the user.
+  has_many :microposts, dependent: :destroy
   # Listing 6.26: Adding the method to get initial password test to pass.
   has_secure_password
 
