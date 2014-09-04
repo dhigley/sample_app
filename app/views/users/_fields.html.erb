@@ -1,5 +1,5 @@
 <!-- Listing 9.49: A partial for the new and edit form fields. -->
-<%= render 'shared/error_messages' %>
+<%= render 'shared/error_messages', object: f.object %>
 
 <%= f.label :name %>
 <%= f.text_field :name %>

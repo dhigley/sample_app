@@ -30,6 +30,16 @@ module SessionsHelper
     user == current_user
   end
 
+  # Listing 9.12: Require users to be signed in before using the 'edit' and 'update' actions.
+  # Listing 10.24: Moving the signed_in_user method into the Sessions helper.
+  def signed_in_user
+    # Listing 9.18: Adding store_location to the signed-in user before filter.
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+
   def sign_out
     current_user.update_attribute(:remember_token,
                                   User.digest(User.new_remember_token))

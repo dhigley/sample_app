@@ -34,6 +34,13 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  # Listing 10.36: A preliminary implementation for the micropost status feed.
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Micropost.where("user_id = ?", id)
+    # microposts
+  end
+
   private
 
     # Listing 8.18: Create the secure 'remember_token' and assign it to the user.

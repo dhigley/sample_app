@@ -32,6 +32,23 @@ describe "StaticPages" do
 
     # The home page should have a link to sign in.
     it { should have_link('Sign in', href: signin_path) }
+
+    # Listing 10.37: A test for rendering the feed on the Home page.
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+        FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          expect(page).to have_selector("li##{item.id}", text: item.content)
+        end
+      end
+    end
   end
 
   # Listing 3.12: Adding code to test the contents of the Help page.

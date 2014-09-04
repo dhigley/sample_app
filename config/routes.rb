@@ -5,6 +5,9 @@ SampleApp::Application.routes.draw do
   # Listing 8.2: Define routes for the Sessions resource
   resources :sessions, only: [:new, :create, :destroy]
 
+  # Listing 10.22: Routes for the Microposts resource.
+  resources :microposts, only: [:create, :destroy]
+
   # Listing 5.26: Updating routes for static pages
   root 'static_pages#home'
 

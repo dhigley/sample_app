@@ -1,11 +1,12 @@
 <!-- Listing 7.24: A partial for displaying form sumission erro messages. -->
-<% if @user.errors.any? %>
+<!-- Listing 10.32: Updating the error-messages partial from Listing 7.24 to work with other objects. -->
+<% if object.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-error">
-      The form contains <%= pluralize(@user.errors.count, "error") %>.
-     </div>
+      The form contains <%= pluralize(object.errors.count, "error") %>.
+    </div>
     <ul>
-    <% @user.errors.full_messages.each do |msg| %>
+    <% object.errors.full_messages.each do |msg| %>
       <li>* <%= msg %></li>
     <% end %>
     </ul>

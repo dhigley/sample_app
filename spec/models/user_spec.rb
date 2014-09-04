@@ -26,6 +26,8 @@ describe User do
   it { should respond_to(:admin) }
   # Listing 10.6: A test for the user’s microposts attribute.
   it { should respond_to(:microposts) }
+  # Listing 10.35: Tests for the (proto-)status feed.
+  it { should respond_to(:feed) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -169,6 +171,17 @@ describe User do
       microposts.each do |micropost|
         expect(Micropost.where(id: micropost.id)).to be_empty
       end
+    end
+
+    # Listing 10.35: Tests for the (proto-)status feed.
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+      end
+
+      its(:feed) { should include(newer_micropost) }
+      its(:feed) { should include(older_micropost) }
+      its(:feed) { should_not include(unfollowed_post) }
     end
   end
 end
