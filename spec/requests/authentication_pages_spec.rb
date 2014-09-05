@@ -15,6 +15,7 @@ describe "Authentication" do
     it { should_not have_link('Profile') }
     it { should_not have_link('Settings') }
     it { should_not have_link('Sign out', href: signout_path) }
+    it { should have_link('Sign in', href: signin_path) }
 
   end
 
@@ -175,7 +176,7 @@ describe "Authentication" do
       end
 
       describe "submitting a POST request to the Users#create action" do
-        before { post users_path }
+        before { post users_path(user) }
         specify { expect(response).to redirect_to(root_url) }
       end
 
