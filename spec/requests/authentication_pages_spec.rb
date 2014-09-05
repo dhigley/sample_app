@@ -178,6 +178,13 @@ describe "Authentication" do
         before { post users_path }
         specify { expect(response).to redirect_to(root_url) }
       end
+
+      # Exercise 10: Write a test to make sure delete links do not appear for microposts not created by the current user.
+      describe "not able to delete other users post" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before { visit user_path(other_user) }
+        it { should_not have_link('delete') }
+      end
     end
 
     # Exercise 9: Prevent admin users from destroying themselves.

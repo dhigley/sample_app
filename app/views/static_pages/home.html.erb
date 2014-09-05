@@ -1,36 +1,7 @@
-<!-- Listing 3.27: Moved all html structure to layouts/application.html.erb -->
-<!-- Listing 10.28: Adding microposts creation to the Home page (/). -->
+<!-- Exercise 10: Refactor the Home page to use separate partials for the two branches of the if-else statement. -->
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span4">
-      <section>
-        <%= render 'shared/user_info' %>
-      </section>
-      <section>
-        <%= render 'shared/micropost_form' %>
-      </section>
-    </aside>
-    <!-- Listing 10.41: Adding a status feed to the Home page. -->
-    <div class="span8">
-      <h3>Micropost Feed</h3>
-      <%= render 'shared/feed' %>
-    </div>
-  </div>
+  <%= render 'shared/user_homepage' %>
 <!-- Listing 10.28: Serves up different HTML based on whether the site visitor is signed in or not-->
 <% else %>
-<!-- Listing 4.5: The Home page now has no custom page title. -->
-<!-- Listing 5.2: The Home page with new css and a link to the signup page. -->
-  <div class="center hero-unit">
-    <h1>Welcome to the Sample App</h1>
-    <h2>
-      This is the home page for the
-      <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-      sample application.
-    </h2>
-
-    <!-- Listing 5.37: Linking the button to the Signup page. -->
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-  </div>
-
-  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+  <%= render 'shared/homepage' %>
 <% end %>

@@ -44,4 +44,21 @@ describe "Micropost pages" do
       end
     end
   end
+
+  # Exercise 10: Add tests for micropost pagination.
+  describe "micropost pagination" do
+    before do
+      31.times { FactoryGirl.create(:micropost, user: user) }
+      visit root_path
+    end
+    after { user.microposts.destroy_all }
+
+    it "should paginate the micropost" do
+      Micropost.paginate(page: 1).each do |post|
+        expect(page).to have_selector('li', text: post.content)
+      end
+    end
+
+    it { should have_selector("div.pagination") }
+  end
 end

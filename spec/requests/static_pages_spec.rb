@@ -48,6 +48,19 @@ describe "StaticPages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      # Exercise 10: Add tests for the sidebar micropost counts (including proper pluralization).
+      describe "sidebar display count" do
+
+        it "should pluralize for multiple post" do
+          expect(page).to have_selector('span', text: "#{Micropost.count} microposts")
+        end
+
+        it "should be singular for just one post" do
+          click_link("delete", match: :first)
+          expect(page).to have_selector('span', text: "#{Micropost.count} micropost")
+        end
+      end
     end
   end
 

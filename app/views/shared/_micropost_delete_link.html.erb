@@ -1,0 +1,5 @@
+<!-- Listing 10.43: Adding a delete link to the micropost partial. -->
+<!-- Listing 10.44: The feed item partial with added delete link. -->
+<%= link_to "delete", object, method: :delete,
+                                 data: { confirm: "You sure?" },
+                                 title: object.content %>

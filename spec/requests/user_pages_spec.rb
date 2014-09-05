@@ -27,6 +27,9 @@ describe "User pages" do
           expect(page).to have_selector('li', text: user.name)
         end
       end
+
+      # Exercise 10: Add tests for micropost pagination.
+      it { should have_selector("div.pagination") }
     end
 
     # Listing 9.42: Tests for delete links.
