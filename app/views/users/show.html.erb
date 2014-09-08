@@ -10,9 +10,15 @@
         <%= @user.name %>
       </h1>
     </section>
+    <!-- Listing 11.27: Adding the follower stats to the user profile page. -->
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
   </aside>
   <!-- Listing 10.17: Adding microposts to the user show page. -->
   <div class="span8">
+    <!-- Listing 11.27: Adding the follow form to the user profile page. -->
+    <%= render 'follow_form' if signed_in? %>
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">

@@ -1,12 +1,20 @@
 SampleApp::Application.routes.draw do
   # Listing 7.3: Adding a Users resoure to the routes file.
-  resources :users
+  resources :users do
+    # Listing 11.18: Adding following and followers actions to the Users controller.
+    member do
+      get :following, :followers
+    end
+  end
 
   # Listing 8.2: Define routes for the Sessions resource
   resources :sessions, only: [:new, :create, :destroy]
 
   # Listing 10.22: Routes for the Microposts resource.
   resources :microposts, only: [:create, :destroy]
+
+  # Listing 11.24: Adding the routes for user relationships.
+  resources :relationships, only: [:create, :destroy]
 
   # Listing 5.26: Updating routes for static pages
   root 'static_pages#home'

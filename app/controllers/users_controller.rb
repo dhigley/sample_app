@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # Listing 9.12: Adding a signed_in_user before filter.
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:index, :edit, :update, :destroy, :followers, :following]
   # Listing 9.14: Listing 9.14: A correct_user before filter to protect the edit/update pages.
   before_action :correct_user,   only: [:edit, :update]
   # Listing 9.46: A before filter restricting the destroy action to admins.
@@ -67,6 +67,21 @@ class UsersController < ApplicationController
       flash[:success] = "User deleted."
       redirect_to users_url
     end
+  end
+
+  # Listing 11.30: The following and followers actions.
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
 
   private
